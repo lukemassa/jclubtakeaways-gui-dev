@@ -107,6 +107,10 @@ func (t Templater) getTemplateFromURL(url string) (*template.Template, error) {
 }
 
 func (t Templater) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == "/commit.txt" {
+		w.Write([]byte("hello"))
+		return
+	}
 	tmpl, err := t.getTemplateFromURL(r.URL.Path)
 	if err != nil {
 		log.Printf("404: %s: %v", r.URL.Path, err)
@@ -127,6 +131,7 @@ func main() {
 			http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 				http.Redirect(w, r, "/index.html", http.StatusMovedPermanently)
 			})
+			//			http.Handle("/commit.txt")
 			http.Handle("/{page}", t)
 			log.Print("Listening on :8080")
 			log.Fatal(http.ListenAndServe(":8080", nil))
