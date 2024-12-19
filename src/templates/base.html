@@ -34,7 +34,7 @@
 <li><a href="/getinvolved.html">Get Involved</a></li>
 </ul>
 <ul id="navbar-right" class="nav navbar-nav navbar-right">
-    <li><div class="g-signin2" data-onsuccess="onSignIn"></div></li>
+    <li><div class="g-signin2" data-onsuccess="alert"></div></li>
 </ul>
 
 </div>
@@ -218,6 +218,10 @@ $(window).on('load', function() {
 		$("#navbar-right").append(content);
        }
    });
+   $.get("/is-local", function(data) {
+       console.log("I called is local and got")
+       console.log(data)
+   })
 });
 </script>
     </html>
